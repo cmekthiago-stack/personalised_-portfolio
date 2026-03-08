@@ -11,35 +11,35 @@ window.onscroll = () => {
     let id = sec.getAttribute('id');
 
     if(top >= offset && top < offset + height){
-      // clear existing active states
       navLinks.forEach(link => link.classList.remove('active'));
       const activeLink = document.querySelector(`header nav a[href*="${id}"]`);
       if(activeLink) activeLink.classList.add('active');
     }
   });
-};
-
-const roles = [
+};const roles = [
   "Frontend Designer",
   "Web Designer",
   "UI / UX Designer",
-  "Web Developer",
+  "Web Developer", 
   "Software Tester"
 ];
 
 const spanElement = document.querySelector(".text-animation span");
-let index = 0;
-
-function updateRole() {
-  if (!spanElement) return;
-  spanElement.textContent = roles[index];
-  index = (index + 1) % roles.length;
-}
 
 if (spanElement) {
+  let index = 0;
+
+  function updateRole() {
+    spanElement.classList.remove('fade-in'); 
+    void spanElement.offsetWidth;             
+    spanElement.textContent = roles[index];
+    spanElement.classList.add('fade-in');     
+    index = (index + 1) % roles.length;
+  }
+
+  updateRole();  
   setInterval(updateRole, 2000);
-  document.addEventListener("DOMContentLoaded", updateRole);
-}    
+}
 
 menuIcon.onclick = () => {
   menuIcon.classList.toggle('bx-x');

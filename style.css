@@ -7,8 +7,15 @@
   outline: none;
   scroll-behavior: smooth;
   font-family: 'Roboto', sans-serif;
+  
+}
+html {
+  overflow-y: scroll;               
+  scrollbar-width: thin;           
+  scrollbar-color: var(--bg-color);
 }
 :root {
+  --role-width: 24ch;
   --bg-color: #080808;
   --second-bg-color: #131313;
   --main-color: orange;
@@ -30,7 +37,6 @@ body{
   width: 100%;
   padding: 4rem 12% 4rem;
   background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -81,9 +87,10 @@ section{
 .home-content{
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
+  align-items: baseline;
+  text-align: left;
   justify-content: center;
+  margin-top: 3rem;
 }
 span{
   color: var(--main-color);  
@@ -97,22 +104,15 @@ span{
 }
 .logo span{
   color: var(--main-color);
-  background: linear-gradient(
-    270deg,
-     #DF8908 10%,
-      #ff1D15 100%
-      );
-      background-clip: text;
-      color: transparent;
 }
 .home-content h3{
-  margin: 1rem 0;
+  margin-bottom: 1rem 0;
+  margin-top: 1rem;
   font-size: 4rem;
 }
 .home-content h1{
-  position: relative;
   font-size: 7.5rem;  
-  font-weight: 600;
+  font-weight: 700;
   margin-top: 1.5rem;
   line-height: 1;
 }
@@ -120,6 +120,8 @@ span{
   border-radius: 50%;
 }
 .home-img img{ 
+  position: relative;
+  top: 3rem;
   width: 32vw;
   border-radius: 50%;
   box-shadow: 0 0 25px var(--main-color);
@@ -135,6 +137,7 @@ span{
   font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.8;
+  max-width: 1000px;
 }
 .social-icons a{
   display: inline-flex;
@@ -172,7 +175,7 @@ span{
 }
 .btn:hover{
   transform: scale(1.05);
-  box-shadow: 0 50px var(--main-color);    
+  box-shadow: 0 0 50px var(--main-color);    
 }
 .btn-group{
   display: flex;
@@ -190,40 +193,47 @@ span{
   background-color: var(--main-color);
   color: black;
 }
-.text-animation {  
-  overflow: hidden;
-  white-space: nowrap;
+.text-animation { 
   font-size: 34px;
   font-weight: 600;
   min-width: 280px;
-}@keyframes cursor{
-  to{
-    border-left: 2px solid var(--main-color);
-  }
-}
-@keyframes words{
-  0%,
-  20%{
-    content: "Frontend Designer";
-  }
-  21%,
-  40%{
-    content: "Web Designer";
-  }  
-  41%,
-  60%{
-    content: "Web Dev";
-  }
-  61%,
-  80%{
-    content: "Mobile App Developer";
-  }
-  81%,
-  100%{
-    content: "Software Tester";
-  }
+  white-space: nowrap;
+  align-items: baseline;
+  display: inline-flex;
+  gap: 0.35rem;
 }
 
+.text-animation span{
+  display: inline-block;
+  overflow: hidden;
+  padding-right: 8px;
+  position: relative;
+  width: var(--role-width);
+  animation: fade-in 0.8s ease-in-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* }
+.text-animation span::before{
+  content: "Frontend Designer";
+  color: var(--main-color);
+  animation: words 20s infinite;
+}
+.text-animation span::after{
+  content: "";
+  background-color: var(--bg-color);
+  position: absolute;
+  width: calc(100% + 8px);
+  height: 100%;
+  border-left: 3px solid var(--bg-color);
+  top: 0;
+  right: -8px;
+  animation: cursor 0.6s infinite, typing 20s  infinite; 
+}
 @keyframes cursor{
   to{
     border-left: 2px solid var(--main-color);
@@ -240,11 +250,11 @@ span{
   }  
   41%,
   60%{
-    content: "Web Dev";
+    content: "UI / UX Designer";
   }
   61%,
   80%{
-    content: "Mobile App Developer";
+    content: "Web Developer";
   }
   81%,
   100%{
@@ -276,7 +286,7 @@ span{
     width: calc(100% + 8px);
   }
 }
- 
+  */
 .heading{
   font-size: 8rem;
   text-align: center;
@@ -356,21 +366,36 @@ span{
   font-weight: 500;
 }
 .timeline-content p{
+  text-align: left;
   color: white;
   font-size: 16px;
   font-weight: 300;
   line-height: 22px;
 }
 ::-webkit-scrollbar {
-  width: 15px;
-}
-::-webkit-scrollbar-thumb {
-  background-color: var(--main-color);
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background-color: var(--bg-color);  
-  width: 50px;
+  background-color: var(--main-color);
+  box-shadow: 
+    inset 0 0 12px rgba(0, 192, 255, 0.35),  
+    0 0 25px rgba(0, 180, 220, 0.5);          
+  border-radius: 10px;
+  border: 1px solid rgba(0, 200, 255, 0.15);
+  background-clip: content-box;
 }
+::-webkit-scrollbar-thumb {
+  background-color: var(--bg-color);    
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background: var(--main-color);
+  box-shadow: var(--bg-color)
+}
+
 .services{
   background-color: var(--bg-color);
   color: black;
@@ -447,7 +472,7 @@ span{
 .testimonial-item{
   min-height: 550px;
   max-width: 450px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.7);
   border: 3px solid rgba(238, 238, 238, 0.2);
   border-radius: 2rem;
   margin: 0 2rem;
@@ -625,7 +650,6 @@ span{
     width: 50%;
     padding: 1rem 3%;
     background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(20px);
     border-bottom-left-radius: 2rem;
     border-left: 2px solid var(--main-color);
     border-bottom: 2px solid var(--main-color);
@@ -640,9 +664,13 @@ span{
     margin: 3rem 0;
     color: white;
   }
+  .gradient-btn{
+    display: none;
+  }
   .home{
     flex-direction: column-reverse;
-    margin: 5rem 4rem;
+    margin: 5rem 0;
+    grid-area: 5rem;
   }
   .home-content h3{
     font-size: 2.6rem;
@@ -668,4 +696,3 @@ span{
 .p-tag{
   width: fit-content;
 }
-
